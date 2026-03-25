@@ -7,7 +7,7 @@ const generateToken=(userId)=>{
    return jwt.sign({id:userID},process.env.JWT_SECRET,{expiresIn:"7d"});
 };
 
-//@desc register  new user
+//@desc Register  new user
 //@route POST/api/auth/register
 //@access Public
 const registerUser=async(req,res)=>{
@@ -47,7 +47,7 @@ const registerUser=async(req,res)=>{
    }
 };
 
-//@desc login   user
+//@desc Login   user
 //@route POST/api/auth/register
 //@access Public
 const loginUser=async(req,res)=>{
@@ -79,9 +79,9 @@ const loginUser=async(req,res)=>{
    }
 };
 
-//@desc get a new profile
-//@route POST/api/auth/register
-//@access Public
+//@desc Get a user profile
+//@route GET/api/auth/register
+//@access Private (Requires JWT)
 const getUserProfile=async(req,res)=>{
    try {
       const user=await user.findeById(req.user.id).select("-password");

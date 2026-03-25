@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Input from '../../component/inputs/input';
 import { validEmail } from '../../utils/helper';
+import { UserContext } from '../../context/userContext';
 
 
 
@@ -10,6 +11,7 @@ const Login = ({ setCurrentPage }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
+  const {updateUser}=UserContext(UserContext);
   const navigation = useNavigate();
 
   //Handle login form submit
@@ -30,7 +32,7 @@ const Login = ({ setCurrentPage }) => {
 
     //Login API Call
     try {
-
+        
     } catch (error) {
 
     }

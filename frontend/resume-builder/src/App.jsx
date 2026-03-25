@@ -4,10 +4,11 @@ import { Toaster} from "react-hot-toast";
 import Dashboard from './pages/Home/Dashboard';
 import EditResume from './pages/ResumeUpdate/EditResume';
 import LandingPage from './pages/LandingPage'; 
+import UserProvider from './context/userContext';
 
 const App = () => {
   return (
-    <>
+    <UserProvider>
     <div>
       <Router>
         <Routes>
@@ -27,7 +28,7 @@ const App = () => {
       },
      }}
     />
-    </>
+    </UserProvider>
   );
 };
 
