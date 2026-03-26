@@ -4,9 +4,9 @@ export const BASE_URL="http://localhost:8000";
 
 export const API_PATHS={
 AUTH:{
-    REGISTER:"api/auth/register", //signup
-    LOGIN: "api/auth/login",  //Authentication user and return JWT token
-    GET_PROFILE:"api/auth/profile", //Get logged-in user detail
+    REGISTER:"/api/auth/register", //signup
+    LOGIN: "/api/auth/login",  //Authentication user and return JWT token
+    GET_PROFILE:"/api/auth/profile", //Get logged-in user detail
 },
 
 RESUME:{

@@ -4,9 +4,9 @@ import { API_PATHS } from "../utils/apiPaths";
 
 export const UserContext=createContext();
 
-const UserProvider=({childern})=>{
+const UserProvider=({children})=>{
     
-    const [user,setUSer]=useState(null);
+    const [user,setUser]=useState(null);
     const [loading,setLoading]=useState(true); //new state to track loading
 
     useEffect(()=>{
@@ -21,10 +21,10 @@ const UserProvider=({childern})=>{
        const fetchUser =async()=>{
         try {
             const response= await axiosInstance.get(API_PATHS.AUTH.GET_PROFILE);
-            setUSer(response.data);
+            setUser(response.data);
         } catch (error) {
             console.error("user not Authenticated",error);
-            cleatUser();
+            clearUser();
             
         } finally{
             setLoading(false);
@@ -36,19 +36,19 @@ const UserProvider=({childern})=>{
     },[]);
 
     const updateUser=(userData)=>{
-            setUSer(userData);
+            setUser(userData);
             localStorage.setItem("token",userData.token); //save token
             setLoading(false);
     };
 
     const clearUser=()=>{
-        setUSer(null);
+        setUser(null);
         localStorage.removeItem("token");
     };
 
     return (
         <UserContext.Provider value={{user,loading,updateUser,clearUser}}>
-            {childern}
+            {children}
         </UserContext.Provider>
     );
 };

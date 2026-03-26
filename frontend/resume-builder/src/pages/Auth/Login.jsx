@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Input from '../../component/inputs/input';
 import { validEmail } from '../../utils/helper';
 import { UserContext } from '../../context/userContext';
-
+import { useContext } from 'react';
 
 
 const Login = ({ setCurrentPage }) => {
@@ -11,7 +11,7 @@ const Login = ({ setCurrentPage }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  const {updateUser}=UserContext(UserContext);
+  const {updateUser}=useContext(UserContext);
   const navigation = useNavigate();
 
   //Handle login form submit
@@ -32,15 +32,30 @@ const Login = ({ setCurrentPage }) => {
 
     //Login API Call
     try {
-        
-    } catch (error) {
+      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+      email,
+      password,
+      });
 
+      const { token } = response.data;
+      
+      if (token){
+      localStorage.setItem("token", token);
+      updateUser(response.data) ;
+      navigate("/dashboard");
+       }
+      } catch (error) {
+        if (error.response && error.response.data.message) {
+        setError(error.response.data.message) ;
+        } else{
+        setError("Something went wrong. Please try again.");
+      }
     }
-  };
+    };
   return (
     <div className="w-[90vw] md:w-[33vw] p-7 flex flex-col justify-center">
       <h3 className="text-lg font-semibold text-black">Welcome Back</h3>
-      <p className="text-xs text-slate-700 mt-[5px] mb-6">please enter your details to login</p>
+      <p className="text-xs text-slate-700 mt-1.25 mb-6">please enter your details to login</p>
 
       <form onSubmit={handleLogin}>
         <Input
@@ -81,3 +96,4 @@ const Login = ({ setCurrentPage }) => {
 }
 
 export default Login
+
